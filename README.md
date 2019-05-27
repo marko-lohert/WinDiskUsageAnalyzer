@@ -4,4 +4,4 @@ An application for analyzing folders on a disk: calculate total size of a folder
 
 This app was written using C# 8 and it runs on .NET Core 3.0.
 
-I have used this application as a demo application in a number of talks (conference, meetups). 
+*I have used this application as a ***demo application*** for my talk.* 
