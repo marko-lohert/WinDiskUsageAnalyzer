@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinDiskUsageAnalyzer", "WinDiskUsageAnalyzer\WinDiskUsageAnalyzer.csproj", "{48475A88-DA0D-47A3-B31A-E4DBCB463C22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48475A88-DA0D-47A3-B31A-E4DBCB463C22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48475A88-DA0D-47A3-B31A-E4DBCB463C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48475A88-DA0D-47A3-B31A-E4DBCB463C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48475A88-DA0D-47A3-B31A-E4DBCB463C22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F867E3E7-97DB-40DB-B7BD-8D222BBACA8B}
+	EndGlobalSection
+EndGlobal
