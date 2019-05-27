@@ -38,7 +38,11 @@ namespace FoldersAndFilesSizeAnalyzer
 
             TotalSize = 0;
 
-            foreach (var item in folder.Items)
+            Index firstIndex = from.Value;
+            Index lastIndex = to.Value + 1; // Add 1 because lastIndex is not included in a range.
+            Range range = firstIndex..lastIndex;
+
+            foreach (var item in folder.Items[range])
             {
                 TotalSize += item.Size;
             }

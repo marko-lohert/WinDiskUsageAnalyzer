@@ -150,8 +150,8 @@ namespace WinDiskUsageAnalyzer
                     {
                         RangeUtility.MakeSureRangeNotToBig(ref from, ref to, CurrentFolder);
 
-                        //if (CurrentFolder != null)
-                        stats.CalculateStatsForRange(CurrentDisk, CurrentFolder, from, to);
+                        if (CurrentFolder != null)
+                            stats.CalculateStatsForRange(CurrentDisk, CurrentFolder, from, to);
                     }
                 }
             }
