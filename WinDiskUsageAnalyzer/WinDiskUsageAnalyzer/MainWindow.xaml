@@ -3,10 +3,119 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WinDiskUsageAnalyzer"
+        xmlns:local="clr-namespace:FoldersAndFilesSizeAnalyzer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Win Disk Usage Analyzer" Height="750" Width="1000"
+        FontSize="15">
+    
+    <Window.Resources>
+        <!-- Selector for disk object column. -->
+        <local:DiskObjectTemplateSelector x:Key="templateSelector"/>
+
+        <!-- Folder in disk object column (use unicode symbol for folder). -->
+        <DataTemplate x:Key="FolderTemplate">
+            <TextBlock>&#x1F4C1;</TextBlock>
+        </DataTemplate>
+
+        <!-- File in disk object column. -->
+        <DataTemplate x:Key="FileTemplate">
+            <TextBlock></TextBlock>
+        </DataTemplate>
+
+        <!-- Converter for Size column in grid with all subfolders and files in current folder. -->
+        <local:ListViewConverterSize x:Key="ListViewConverterSize" />
+    </Window.Resources>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Menu -->
+        <Menu Grid.Row="0" Grid.ColumnSpan="3"  Height="25" VerticalContentAlignment="Center" FontSize="15">
+            <MenuItem Name="FileMenu" Header="File" >
+                <MenuItem Name="FileOpenMenu" Header="Open" Click="FileOpenMenu_Click"/>
+                <Separator/>
+                <MenuItem Name="FileExitMenu" Header="Exit" Click="ButtonExit_Click"/>
+            </MenuItem>
+            <MenuItem Name="ToolsMenu" Header="Tools">
+                <MenuItem Name="ToolsOptionsMenu" Header="Options" Click="ToolsOptionsMenu_Click" />
+            </MenuItem>
+            <MenuItem Name="HelpMenu" Header="Help">
+                <MenuItem Name="HelpAboutMenu" Header="About" Click="HelpAboutMenu_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Current folder -->
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBlock Text="Current folder:" VerticalAlignment="Center" Margin="10 0 10 0" Height="25" />
+            <TextBlock Name="txtCurrentFolder" VerticalAlignment="Center" Height="25" />
+        </StackPanel>
+
+        <!-- Move to parent folder -->
+        <Button Grid.Row="1" Grid.Column="2" Name="btnGoToParentFolder" Content="&#8679;" FontWeight="Bold" FontSize="20" Margin="5 5 12 8" Click="BtnGoToParentFolder_Click" />
+
+        <!-- Grid: folder and files -->
+        <ListView Grid.Row="2" Grid.ColumnSpan="3" Name="listAll" Margin="10 0 10 0" MouseLeftButtonUp="SelectFolder_Click">
+            <ListView.View>
+                <GridView>
+                    <!-- Type of disk object: folder or file. -->
+                    <GridViewColumn Width="30" CellTemplateSelector="{DynamicResource templateSelector}" />
+                    <GridViewColumn Header="Name" Width="320" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Extension" Width="100" DisplayMemberBinding="{Binding Extension}" />
+                    <GridViewColumn Header="Size" Width="140" DisplayMemberBinding="{Binding Size, Converter={StaticResource ListViewConverterSize} }" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Statistics -->
+
+        <!-- Range of folders and files for which statictics are calculated. -->
+        <GroupBox Grid.Row="3" Grid.Column="0" Header="Statistics range" Margin="10 10 0 35">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <RadioButton Grid.Row="0" Grid.Column="0" GroupName="groupStatisticsArea" Name="radioAll" IsChecked="True" Checked="RadioBtnStatsRange_Checked" VerticalContentAlignment="Center">All</RadioButton>
+                <RadioButton Grid.Row="1" Grid.Column="0" GroupName="groupStatisticsArea" Name="radioRange" Checked="RadioBtnStatsRange_Checked" VerticalContentAlignment="Center">Range:</RadioButton>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="1-3" Name="txtSelectedRange" TextChanged="TxtSelectedRange_TextChanged" VerticalAlignment="Center" VerticalContentAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Statistics - calculated values. -->
+        <GroupBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Header="Statistics" Margin="10 10 10 0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center">Total size:</Label>
+                <TextBlock Grid.Row="0" Grid.Column="1" Name="txtTotalSize" VerticalAlignment="Center" />
+                <Label Grid.Row="1" Grid.Column="0"  VerticalContentAlignment="Center">Average size:</Label>
+                <TextBlock Grid.Row="1" Grid.Column="1" Name="txtAvgSize"  VerticalAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="0"  VerticalContentAlignment="Center">Disk space:</Label>
+                <TextBlock Grid.Row="2" Grid.Column="1" Name="txtDiskSpacePercentage" VerticalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
 
     </Grid>
 </Window>

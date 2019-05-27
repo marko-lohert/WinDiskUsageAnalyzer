@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
     <Copyright>Marko Lohert © 2019</Copyright>
     <PackageLicenseExpression></PackageLicenseExpression>
     <Authors>Marko Lohert</Authors>
