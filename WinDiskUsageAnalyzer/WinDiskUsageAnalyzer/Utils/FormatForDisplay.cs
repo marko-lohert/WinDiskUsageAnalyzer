@@ -13,25 +13,13 @@ namespace WinDiskUsageAnalyzer.Utils
 
         public static string FormatDiskSpacePercentage(decimal? diskSpacePercentage)
         {
-            switch (diskSpacePercentage)
+            return diskSpacePercentage switch
             {
-                case null:
-                    {
-                        return "Unknown disk space percentage";
-                    }
-                case decimal d when d >= 0.001m || d == 0m:
-                    {
-                        return Invariant($"{d:##0.###} %");
-                    }
-                case decimal d when d < 0.001m:
-                    {
-                        return "< 0.001 %";
-                    }
-                default:
-                    {
-                        throw new Exception("Cannot format disk space percentage.");
-                    }
-            }
+                null                                    => "Unknown disk space percentage",
+                decimal d when d >= 0.001m || d == 0m   => Invariant($"{d:##0.###} %"),
+                decimal d when d < 0.001m               => "< 0.001 %",
+                _                                       => throw new Exception("Cannot format disk space percentage.")
+            };
         }
     }
 }

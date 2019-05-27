@@ -1,10 +1,7 @@
-﻿using System;
+﻿using FoldersAndFilesSizeAnalyzer.Entities;
+using System;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
-using FoldersAndFilesSizeAnalyzer.Dialogs;
-using FoldersAndFilesSizeAnalyzer.UnitsOfMeasurement;
-using FoldersAndFilesSizeAnalyzer.Entities;
 
 namespace FoldersAndFilesSizeAnalyzer
 {
@@ -15,9 +12,6 @@ namespace FoldersAndFilesSizeAnalyzer
     {
         public Disk AnalyzeDisk(char diskLabel)
         {
-            string diskType;
-            string diskManufacturer;
-
             string rootFolderName = $"{diskLabel}:\\";
             Disk disk = new Disk
             {

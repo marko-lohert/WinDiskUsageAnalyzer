@@ -6,37 +6,14 @@ namespace FoldersAndFilesSizeAnalyzer.UnitsOfMeasurement
     {
         public static decimal ConvertFromByte(SizeUnit targetUnit, decimal size)
         {
-            decimal convertedSize;
-
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case SizeUnit.Byte:
-                {
-                    convertedSize = size;
-                    break;
-                }
-                case SizeUnit.KB:
-                {
-                    convertedSize = size / 1024;
-                    break;
-                }
-                case SizeUnit.MB:
-                {
-                    convertedSize = size / (1024 * 1024);
-                    break;
-                }
-                case SizeUnit.GB:
-                {
-                    convertedSize = size / (1024 * 1024 * 1024);
-                    break;
-                }
-                default:
-                {
-                    throw new ArgumentException("Unknown unit");
-                }
-            }
-
-            return convertedSize;
+                SizeUnit.Byte => size,
+                SizeUnit.KB   => size / 1024m,
+                SizeUnit.MB   => size / (1024m * 1024),
+                SizeUnit.GB   => size / (1024m * 1024 * 1024),
+                _             => throw new ArgumentException("Unknown unit")
+            };            
         }
     }
 }
